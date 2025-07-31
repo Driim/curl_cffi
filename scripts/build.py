@@ -42,7 +42,7 @@ def detect_arch():
                     os.makedirs(tmpdir, exist_ok=True)
                     arch["libdir"] = tmpdir
                 else:
-                    tmpdir = tempfile.TemporaryDirectory()
+                    tmpdir = tempfile.mkstemp()
                     arch["libdir"] = tmpdir.name
             return arch
     raise Exception(f"Unsupported arch: {uname}")
@@ -103,6 +103,10 @@ def get_curl_archives():
             f"{arch['libdir']}/libbrotlienc.a",
             f"{arch['libdir']}/libbrotlicommon.a",
         ]
+    elif arch["system"] == "Darwin" and arch.get("link_type") == "static":
+        return [
+            f"{arch['libdir']}/libcurl-impersonate.a",
+        ]
     else:
         return []
 
@@ -127,7 +131,7 @@ def get_curl_libraries():
             "brotlidec",
             "brotlicommon",
         ]
-    elif arch["system"] == "Darwin" or (
+    elif (arch["system"] == "Darwin" and arch.get("link_type") == "dynamic") or (
         arch["system"] == "Linux" and arch.get("link_type") == "dynamic"
     ):
         return ["curl-impersonate"]
