@@ -31,6 +31,7 @@
         "machine": "x86_64",
         "pointer_size": 64,
         "libdir": "",
+        "link_type": "static",
         "sysname": "macos",
         "so_name": "libcurl-impersonate.4.dylib",
         "so_arch": "x86_64"
@@ -40,6 +41,7 @@
         "machine": "arm64",
         "pointer_size": 64,
         "libdir": "",
+        "link_type": "static",
         "sysname": "macos",
         "so_name": "libcurl-impersonate.4.dylib",
         "so_arch": "arm64"

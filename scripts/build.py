@@ -42,8 +42,7 @@ def detect_arch():
                     os.makedirs(tmpdir, exist_ok=True)
                     arch["libdir"] = tmpdir
                 else:
-                    tmpdir = tempfile.mkstemp()
-                    arch["libdir"] = tmpdir.name
+                    arch["libdir"] = tempfile.mkdtemp()
             return arch
     raise Exception(f"Unsupported arch: {uname}")
 
@@ -106,6 +105,17 @@ def get_curl_archives():
     elif arch["system"] == "Darwin" and arch.get("link_type") == "static":
         return [
             f"{arch['libdir']}/libcurl-impersonate.a",
+            "/opt/homebrew/lib/libssl.a",
+            "/opt/homebrew/lib/libcrypto.a",
+            "/opt/homebrew/opt/zlib/lib/libz.a",
+            "/opt/homebrew/lib/libzstd.a",
+            "/opt/homebrew/lib/libnghttp2.a",
+            "/opt/homebrew/lib/libngtcp2.a",
+            "/opt/homebrew/lib/libngtcp2_crypto_ossl.a",
+            "/opt/homebrew/lib/libnghttp3.a",
+            "/opt/homebrew/lib/libbrotlidec.a",
+            "/opt/homebrew/lib/libbrotlienc.a",
+            "/opt/homebrew/lib/libbrotlicommon.a",
         ]
     else:
         return []
